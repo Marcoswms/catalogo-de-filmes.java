@@ -2,9 +2,11 @@ package br.com.marcos.catalogo_filmes.controller;
 
 import br.com.marcos.catalogo_filmes.model.Filme;
 import br.com.marcos.catalogo_filmes.service.FilmeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/filmes")
@@ -24,5 +26,16 @@ public class FilmeController {
     @PostMapping
     public Filme salvar(@RequestBody Filme filme) {
         return service.salvar(filme);
+    }
+
+    @GetMapping
+    public ResponseEntity<Filme> buscarPorId(@PathVariable Long id) {
+        Optional<Filme> filme = service.buscarPorId(id);
+
+        if (filme.isPresent()) {
+            return ResponseEntity.ok(filme.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

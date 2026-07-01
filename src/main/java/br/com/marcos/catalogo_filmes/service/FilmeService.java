@@ -5,6 +5,7 @@ import br.com.marcos.catalogo_filmes.repository.FilmeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmeService {
@@ -21,5 +22,9 @@ public class FilmeService {
 
     public Filme salvar(Filme filme) {
         return repository.save(filme);
+    }
+
+    public Optional<Filme> buscarPorId(Long id) {
+        return repository.findById(id);
     }
 }
