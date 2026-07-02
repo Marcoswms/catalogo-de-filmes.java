@@ -28,14 +28,23 @@ public class FilmeController {
         return service.salvar(filme);
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Filme> buscarPorId(@PathVariable Long id) {
         Optional<Filme> filme = service.buscarPorId(id);
 
         if (filme.isPresent()) {
             return ResponseEntity.ok(filme.get());
         }
+        return ResponseEntity.notFound().build();
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
+
+        boolean removido = service.deletarPorId(id);
+        if (removido) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.notFound().build();
     }
 }

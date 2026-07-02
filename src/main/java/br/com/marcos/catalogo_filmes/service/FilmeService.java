@@ -27,4 +27,12 @@ public class FilmeService {
     public Optional<Filme> buscarPorId(Long id) {
         return repository.findById(id);
     }
+
+    public boolean deletarPorId(Long id) {
+        if (!repository.existsById(id)) {
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
+    }
 }
