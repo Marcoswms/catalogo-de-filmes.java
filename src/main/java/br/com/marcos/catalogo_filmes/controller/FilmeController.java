@@ -38,9 +38,17 @@ public class FilmeController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Filme> atualizarPorId(@PathVariable Long id, @RequestBody Filme filme) {
+        Optional<Filme> filmeAtualizado = service.atualizarPorId(id, filme);
+        if (filmeAtualizado.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(filmeAtualizado.get());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
-
         boolean removido = service.deletarPorId(id);
         if (removido) {
             return ResponseEntity.noContent().build();

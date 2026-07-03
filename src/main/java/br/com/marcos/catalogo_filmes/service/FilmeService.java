@@ -28,6 +28,21 @@ public class FilmeService {
         return repository.findById(id);
     }
 
+    public Optional<Filme> atualizarPorId(Long id, Filme filmeAtualizado) {
+        Optional<Filme> filmeOptional = repository.findById(id);
+        if (filmeOptional.isEmpty()) {
+            return Optional.empty();
+        }
+        Filme filme = filmeOptional.get();
+        filme.setTitulo(filmeAtualizado.getTitulo());
+        filme.setGenero(filmeAtualizado.getGenero());
+        filme.setAnoLancamento(filmeAtualizado.getAnoLancamento());
+        filme.setNota(filmeAtualizado.getNota());
+        filme.setAssistido(filmeAtualizado.getAssistido());
+        repository.save(filme);
+        return Optional.of(filme);
+    }
+
     public boolean deletarPorId(Long id) {
         if (!repository.existsById(id)) {
             return false;
