@@ -1,5 +1,6 @@
 package br.com.marcos.catalogo_filmes.model;
 
+import br.com.marcos.catalogo_filmes.enums.Genero;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,9 @@ public class Filme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
-    private String genero;
+
+    @Enumerated(EnumType.STRING)
+    private Genero genero;
     private Integer anoLancamento;
     private Integer nota;
     private Boolean assistido;
@@ -34,11 +37,11 @@ public class Filme {
         this.titulo = titulo;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
