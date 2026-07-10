@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Filmes</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+</head>
+<body>
+<div class="container mt-5">
+
+    <h1 class="mb-4">Catálogo de Filmes</h1>
+
+    <form class="form-validation">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="titulo" placeholder="Título do filme" required>
+            <label for="titulo">Título do filme</label>
+            <div class="invalid-feedback">
+                Por favor, insira o título do filme.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-select" id="genero" aria-label="Floating label select example">
+                <option value="" selected disabled>Selecione o gênero do filme</option>
+                <option value="ACAO">Ação</option>
+                <option value="AVENTURA">Aventura</option>
+                <option value="COMEDIA">Comédia</option>
+                <option value="DRAMA">Drama</option>
+                <option value="FICCAO_CIENTIFICA">Ficção Científica</option>
+                <option value="FANTASIA">Fantasia</option>
+                <option value="ROMANCE">Romance</option>
+                <option value="SUSPENSE">Suspense</option>
+                <option value="TERROR">Terror</option>
+                <option value="DOCUMENTARIO">Documentário</option>
+                <option value="ANIMACAO">Animação</option>
+            </select>
+            <label for="genero">Gênero</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="ano" placeholder="AAAA" pattern="\d{4}" min="1888"
+                   max="2100" title="Digite um ano válido com 4 dígitos">
+            <label for="ano" class="form-label">Ano de Lançamento </label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-select" id="nota" aria-label="Floating label select example">
+                <option value="" selected disabled>Selecione uma nota</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+            </select>
+            <label for="nota">Sua nota</label>
+        </div>
+
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="assistido" id="assistido" value="true" checked/>
+            <label class="form-check-label" for="assistido">Já assisti</label>
+        </div>
+
+        <button type="button" class="btn btn-outline-info mt-3">Salvar Filme</button>
+    </form>
+</div>
+
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
