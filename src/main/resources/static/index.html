@@ -11,7 +11,7 @@
 
     <h1 class="mb-4">Catálogo de Filmes</h1>
 
-    <form class="form-validation">
+    <form id="formFilme" class="form-validation">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="titulo" placeholder="Título do filme" required>
             <label for="titulo">Título do filme</label>
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-floating mb-3">
-            <select class="form-select" id="genero" aria-label="Floating label select example">
+            <select class="form-select" id="genero" aria-label="Selecione o gênero do filme" required>
                 <option value="" selected disabled>Selecione o gênero do filme</option>
                 <option value="ACAO">Ação</option>
                 <option value="AVENTURA">Aventura</option>
@@ -39,13 +39,13 @@
         </div>
 
         <div class="form-floating mb-3">
-            <input type="number" class="form-control" id="ano" placeholder="AAAA" pattern="\d{4}" min="1888"
-                   max="2100" title="Digite um ano válido com 4 dígitos">
+            <input type="number" class="form-control" id="ano" placeholder="AAAA" min="1888"
+                   max="2100" title="Digite um ano válido com 4 dígitos" required>
             <label for="ano" class="form-label">Ano de Lançamento </label>
         </div>
 
         <div class="form-floating mb-3">
-            <select class="form-select" id="nota" aria-label="Floating label select example">
+            <select class="form-select" id="nota" aria-label="Selecione uma nota" required>
                 <option value="" selected disabled>Selecione uma nota</option>
                 <option value="5">5</option>
                 <option value="4">4</option>
@@ -61,8 +61,44 @@
             <label class="form-check-label" for="assistido">Já assisti</label>
         </div>
 
-        <button type="button" class="btn btn-outline-info mt-3">Salvar Filme</button>
+        <button id="btnSalvar" type="submit" class="btn btn-outline-primary mt-3">Salvar Filme</button>
     </form>
+
+    <div class="mt-5">
+
+        <h2>Lista de Filmes</h2>
+
+        <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Título</th>
+
+                <th>Gênero</th>
+
+                <th>Ano</th>
+
+                <th>Nota</th>
+
+                <th>Assistido</th>
+
+                <th>Ações</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody id="listaFilmes">
+
+            </tbody>
+
+        </table>
+
+    </div>
 </div>
 
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
