@@ -25,7 +25,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     assistido: assistido
         };
 
-        console.log(filme);
-        console.log("Formulário enviado!");
+        fetch ("http://localhost:8080/filmes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(filme)
+        })
+        .then(function(response) {
+            console.log(response);
+        });
     });
 });
