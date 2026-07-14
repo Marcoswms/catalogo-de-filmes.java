@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const assistido = campoAssistido.checked;
 
         const filme = {
-                    titulo: titulo,
-                    genero: genero,
-                    anoLancamento: anoLancamento,
-                    nota: nota,
-                    assistido: assistido
+            titulo: titulo,
+            genero: genero,
+            anoLancamento: anoLancamento,
+            nota: nota,
+            assistido: assistido
         };
 
         fetch ("http://localhost:8080/filmes", {
@@ -32,8 +32,15 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify(filme)
         })
-        .then(function(response) {
-            console.log(response);
+            .then(function(response) {
+
+            if (response.ok) {
+                console.log("Filme salvo com sucesso!");
+                formulario.reset();
+            }
+            else {
+                console.log(response.status, "Precisamos tratar esse erro!");
+            }
         });
     });
 });
