@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    carregarFilmes();
 
     const formulario = document.getElementById("formFilme");
 
@@ -43,4 +44,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+    function carregarFilmes() {
+        fetch("http://localhost:8080/filmes")
+            .then(function(response) {
+            return response.json();
+        })
+            .then(function(filmes) {
+            console.log(filmes);
+        })
+    }
 });
