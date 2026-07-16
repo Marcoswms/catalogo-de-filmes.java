@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.ok) {
                 console.log("Filme salvo com sucesso!");
                 formulario.reset();
+
+                carregarFilmes();
             }
             else {
                 console.log(response.status, "Precisamos tratar esse erro!");
@@ -49,6 +51,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function carregarFilmes() {
+        tabela.innerHTML = "";
+
         fetch("http://localhost:8080/filmes")
             .then(function(response) {
             return response.json();
