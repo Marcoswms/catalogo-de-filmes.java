@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const tabela = document.getElementById("listaFilmes");
+    tabela.innerHTML = "";
+
     carregarFilmes();
 
     const formulario = document.getElementById("formFilme");
@@ -44,13 +47,26 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
     function carregarFilmes() {
         fetch("http://localhost:8080/filmes")
             .then(function(response) {
             return response.json();
         })
             .then(function(filmes) {
-            console.log(filmes);
+
+            filmes.forEach(function(filme) {
+                const linha = `
+                <tr>
+                    <td>${filme.id}</td>
+                    <td>${filme.titulo}</td>
+                    <td>${filme.genero}</td>
+                    <td>${filme.anoLancamento}</td>
+                    <td>${filme.nota}</td>
+                    <td>${filme.assistido}</td>
+                </tr>`;
+                tabela.innerHTML += linha;
+            })
         })
     }
 });
