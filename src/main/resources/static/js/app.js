@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function carregarFilmes() {
-        tabela.innerHTML = "";
 
         fetch("http://localhost:8080/filmes")
             .then(function(response) {
@@ -59,8 +58,9 @@ document.addEventListener("DOMContentLoaded", function() {
         })
             .then(function(filmes) {
 
+            let linhas = "";
             filmes.forEach(function(filme) {
-                const linha = `
+                linhas += `
                 <tr>
                     <td>${filme.id}</td>
                     <td>${filme.titulo}</td>
@@ -68,9 +68,37 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>${filme.anoLancamento}</td>
                     <td>${filme.nota}</td>
                     <td>${filme.assistido}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-warning btn-sm me-2">Editar</button>
+                        <button type="button" data-id="${filme.id}" class="btn-excluir btn btn-outline-danger btn-sm me-2">Excluir</button>
+                    </td>
                 </tr>`;
-                tabela.innerHTML += linha;
-            })
+            });
+            tabela.innerHTML = linhas;
+            const botoesExcluir = document.querySelectorAll(".btn-excluir");
+
+            botoesExcluir.forEach(function(botao){
+                botao.addEventListener("click", function(){
+                    const id = botao.dataset.id;
+                    excluirFilme(id);
+                });
+            });
+        });
+    }
+
+    function excluirFilme(idFilme) {
+
+        fetch(`http://localhost:8080/filmes/${idFilme}`, {
+            method: "DELETE",
         })
+            .then(function(response){
+            if (response.ok) {
+                console.log("Filme excluido com sucesso!");
+                carregarFilmes();
+            }
+            else {
+                console.log(`Código ${response.status} - Algo inesperado aconteceu, precisamos tratar!`);
+            }
+        });
     }
 });
