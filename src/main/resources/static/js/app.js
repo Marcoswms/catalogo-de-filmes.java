@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+    let listaFilmes = [];
+
     const tabela = document.getElementById("listaFilmes");
     tabela.innerHTML = "";
 
@@ -58,6 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
         })
             .then(function(filmes) {
 
+            listaFilmes = filmes;
+
             let linhas = "";
             filmes.forEach(function(filme) {
                 linhas += `
@@ -83,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     excluirFilme(id);
                 });
             });
+
         });
     }
 
