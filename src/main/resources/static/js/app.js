@@ -68,13 +68,18 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             tabela.innerHTML = linhas;
-            const botoesEditar = document.querySelectorAll(".btn-editar");
-            const botoesExcluir = document.querySelectorAll(".btn-excluir");
 
-            botoesEditar.forEach(function(botao){
-                botao.addEventListener("click", function() {
+            tabela.addEventListener("click", function(event){
 
-                    const id = Number(botao.dataset.id);
+                if (event.target.classList.contains("btn-excluir")) {
+
+                    const id = Number(event.target.dataset.id);
+                    excluirFilme(id);
+                }
+
+                if (event.target.classList.contains("btn-editar")) {
+
+                    const id = Number(event.target.dataset.id);
                     const filme = listaFilmes.find(function(filme) {
                         return filme.id === id;
                     });
@@ -86,14 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     campoAnoLancamento.value = filme.anoLancamento;
                     campoNota.value = filme.nota;
                     campoAssistido.checked = filme.assistido;
-                });
-            });
-
-            botoesExcluir.forEach(function(botao) {
-                botao.addEventListener("click", function() {
-                    const id = botao.dataset.id;
-                    excluirFilme(id);
-                });
+                }
             });
         });
     }
