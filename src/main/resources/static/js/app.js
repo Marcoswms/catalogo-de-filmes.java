@@ -14,22 +14,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     carregarFilmes();
 
+    function obterDadosDoFormulario(){
+
+        const filme = {
+            titulo: campoTitulo.value,
+            genero: campoGenero.value,
+            anoLancamento: Number(campoAnoLancamento.value),
+            nota: Number(campoNota.value),
+            assistido: campoAssistido.checked
+        };
+
+        return filme;
+    }
+
     formulario.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        const titulo = campoTitulo.value;
-        const genero = campoGenero.value;
-        const anoLancamento = Number(campoAnoLancamento.value);
-        const nota = Number(campoNota.value);
-        const assistido = campoAssistido.checked;
-
-        const filme = {
-            titulo: titulo,
-            genero: genero,
-            anoLancamento: anoLancamento,
-            nota: nota,
-            assistido: assistido
-        };
+        const filme = obterDadosDoFormulario();
 
         if (idFilmeEmEdicao === null) {
             salvarFilme(filme);
@@ -72,10 +73,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
             botoesEditar.forEach(function(botao){
                 botao.addEventListener("click", function() {
-                    const id = botao.dataset.id;
+
+                    const id = Number(botao.dataset.id);
                     const filme = listaFilmes.find(function(filme) {
-                        return filme.id == id;
+                        return filme.id === id;
                     });
+
                     idFilmeEmEdicao = filme.id;
 
                     campoTitulo.value = filme.titulo;
@@ -123,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(function(response) {
 
             if (response.ok) {
-                console.log("Filme salvo com sucesso!");
+                console.log("Filme atualizado com sucesso!");
                 formulario.reset();
 
                 idFilmeEmEdicao = null;
@@ -148,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(function(response) {
 
             if (response.ok) {
-                console.log("Filme atualizado com sucesso!");
+                console.log("Filme salvo com sucesso!");
                 formulario.reset();
 
                 carregarFilmes();
