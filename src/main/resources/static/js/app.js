@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    const tituloFormulario = document.getElementById("tituloFormulario");
+    const btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
+
     const formulario = document.getElementById("formFilme");
     const tabela = document.getElementById("listaFilmes");
 
@@ -68,33 +71,42 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             tabela.innerHTML = linhas;
-
-            tabela.addEventListener("click", function(event){
-
-                if (event.target.classList.contains("btn-excluir")) {
-
-                    const id = Number(event.target.dataset.id);
-                    excluirFilme(id);
-                }
-
-                if (event.target.classList.contains("btn-editar")) {
-
-                    const id = Number(event.target.dataset.id);
-                    const filme = listaFilmes.find(function(filme) {
-                        return filme.id === id;
-                    });
-
-                    idFilmeEmEdicao = filme.id;
-
-                    campoTitulo.value = filme.titulo;
-                    campoGenero.value = filme.genero;
-                    campoAnoLancamento.value = filme.anoLancamento;
-                    campoNota.value = filme.nota;
-                    campoAssistido.checked = filme.assistido;
-                }
-            });
         });
     }
+
+    btnCancelarEdicao.addEventListener("click", function() {
+        cancelarEdicao();
+    });
+
+    tabela.addEventListener("click", function(event){
+
+        if (event.target.classList.contains("btn-excluir")) {
+
+            const id = Number(event.target.dataset.id);
+            excluirFilme(id);
+        }
+
+        if (event.target.classList.contains("btn-editar")) {
+
+            const id = Number(event.target.dataset.id);
+            const filme = listaFilmes.find(function(filme) {
+                return filme.id === id;
+            });
+
+            idFilmeEmEdicao = filme.id;
+
+            tituloFormulario.textContent = "Editar Filme #" + filme.id;
+            btnCancelarEdicao.style.display = "inline-block";
+
+            campoTitulo.value = filme.titulo;
+            campoGenero.value = filme.genero;
+            campoAnoLancamento.value = filme.anoLancamento;
+            campoNota.value = filme.nota;
+            campoAssistido.checked = filme.assistido;
+
+            formulario.querySelector("button[type='submit']").textContent = "Atualizar Filme";
+        }
+    });
 
     function excluirFilme(idFilme) {
 
@@ -127,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log("Filme atualizado com sucesso!");
                 formulario.reset();
 
-                idFilmeEmEdicao = null;
+                cancelarEdicao();
 
                 carregarFilmes();
             }
@@ -158,5 +170,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log(response.status, "Precisamos tratar esse erro!");
             }
         });
+    }
+
+    function cancelarEdicao() {
+
+        formulario.reset();
+
+        idFilmeEmEdicao = null;
+        tituloFormulario.textContent = "Cadastrar Filme";
+        btnCancelarEdicao.style.display = "none";
+
+        formulario.querySelector("button[type='submit']").textContent = "Salvar Filme";
     }
 });

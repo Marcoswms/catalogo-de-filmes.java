@@ -12,6 +12,8 @@
     <h1 class="mb-4">Catálogo de Filmes</h1>
 
     <form id="formFilme" class="form-validation">
+
+        <h2 id="tituloFormulario">Cadastrar Filme</h2>
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="titulo" placeholder="Título do filme" required>
             <label for="titulo">Título do filme</label>
@@ -61,7 +63,14 @@
             <label class="form-check-label" for="assistido">Já assisti</label>
         </div>
 
-        <button id="btnSalvar" type="submit" class="btn btn-outline-primary mt-3">Salvar Filme</button>
+        <button id="btnSalvar" type="submit" class="btn btn-outline-primary mt-3"
+            >Salvar Filme
+        </button>
+
+        <button id="btnCancelarEdicao" type="button" class="btn btn-outline-danger mt-3" style="display: none;"
+            >Cancelar
+        </button>
+
     </form>
 
     <div class="mt-5">
