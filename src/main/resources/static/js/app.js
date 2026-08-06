@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const filme = obterDadosDoFormulario();
 
+        if (!validarFormulario(filme)) {
+            return;
+        }
+
         if (idFilmeEmEdicao === null) {
             salvarFilme(filme);
         }
@@ -41,6 +45,29 @@ document.addEventListener("DOMContentLoaded", function() {
             atualizarFilme(filme);
         }
     });
+
+    function validarFormulario(filme) {
+
+        if (filme.titulo.trim() === "") {
+            alert("Título não pode estar vazio!");
+            return false;
+        }
+
+        const anoPrimeiroFilme = 1888;
+        const anoAtual = new Date().getFullYear();
+
+        if (filme.anoLancamento < anoPrimeiroFilme || filme.anoLancamento > anoAtual) {
+            alert(`O ano de lançamento deve estar entre ${anoPrimeiroFilme} e ${anoAtual}.`);
+            return false;
+        }
+
+        if (filme.nota < 1 || filme.nota > 5) {
+            alert("Nota não pode ser menor que 1 ou maior que 5!");
+            return false;
+        }
+
+        return true;
+    }
 
     function carregarFilmes() {
 
