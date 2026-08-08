@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    const mensagem = document.getElementById("mensagem");
+
     const tituloFormulario = document.getElementById("tituloFormulario");
     const btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
 
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function validarFormulario(filme) {
 
         if (filme.titulo.trim() === "") {
-            alert("Título não pode estar vazio!");
+            mostrarMensagem("Título não pode estar vazio!", "danger");
             return false;
         }
 
@@ -57,12 +59,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const anoAtual = new Date().getFullYear();
 
         if (filme.anoLancamento < anoPrimeiroFilme || filme.anoLancamento > anoAtual) {
-            alert(`O ano de lançamento deve estar entre ${anoPrimeiroFilme} e ${anoAtual}.`);
+            mostrarMensagem(`O ano de lançamento deve estar entre ${anoPrimeiroFilme} e ${anoAtual}.`, "danger");
             return false;
         }
 
         if (filme.nota < 1 || filme.nota > 5) {
-            alert("Nota não pode ser menor que 1 ou maior que 5!");
+            mostrarMensagem("Nota não pode ser menor que 1 ou maior que 5!", "danger");
             return false;
         }
 
@@ -129,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             idFilmeEmEdicao = filme.id;
 
-            tituloFormulario.textContent = "Editar Filme #" + filme.id;
+            tituloFormulario.textContent = "Em Edição: " + filme.titulo;
             btnCancelarEdicao.style.display = "inline-block";
 
             campoTitulo.value = filme.titulo;
@@ -149,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
             .then(function(response){
             if (response.ok) {
-                console.log("Filme excluido com sucesso!");
+                mostrarMensagem("Filme excluido com sucesso!", "success");
                 carregarFilmes();
             }
             else {
@@ -170,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(function(response) {
 
             if (response.ok) {
-                console.log("Filme atualizado com sucesso!");
+                mostrarMensagem("Filme atualizado com sucesso!", "success");
 
                 cancelarEdicao();
                 carregarFilmes();
@@ -193,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(function(response) {
 
             if (response.ok) {
-                console.log("Filme salvo com sucesso!");
+                mostrarMensagem("Filme salvo com sucesso!", "success");
                 formulario.reset();
 
                 carregarFilmes();
@@ -209,8 +211,20 @@ document.addEventListener("DOMContentLoaded", function() {
         formulario.reset();
 
         idFilmeEmEdicao = null;
-        tituloFormulario.textContent = "Cadastrar Filme";
+        tituloFormulario.textContent = "Novo Filme";
         btnCancelarEdicao.style.display = "none";
         formulario.querySelector("button[type='submit']").textContent = "Salvar Filme";
+    }
+
+    function mostrarMensagem(texto, tipo) {
+
+        mensagem.innerHTML = `
+        <div class="alert-${tipo}" role="alert">
+            ${texto}
+        </div>`;
+
+        setTimeout(function() {
+            mensagem.innerHTML = "";
+        }, 3000);
     }
 });
